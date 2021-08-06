@@ -1,35 +1,25 @@
+//callback hell solution
 let doWork = function (job, timer, isOK) {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       let dt = new Date();
-      if( isOK ){
-
+      if (isOK) {
+        resolve(`完成工作: ${job} at ${dt.toISOString()}`);
+      } else {
+        reject(`${job}失敗`);
       }
-    //   cb(null, `完成工作: ${job} at ${dt.toISOString()}`);
     }, timer);
-  };
-let p = new Promise(resolve, reject);
-
-//callback hell
-//   let dt = new Date();
-//   console.log(`開始工作 at ${dt.toISOString()}`);
-//   doWork("刷牙", 3000, function(err, data){
-//         if (err) {
-//             console.error("發生錯誤:", err);
-//         } else {
-//             console.log(data);
-//             doWork("洗臉", 3000, function(err, data){
-//                 if(err){
-//                     console.error("發生錯誤:", err);
-//                 }else{
-//                     console.log(data);
-//                     doWork("吃早餐", 5000, function(err,data){
-//                         if(err){
-//                             console.error("發生錯誤:", err);
-//                         }else{
-//                             console.log(data);
-//                         }
-//                     })
-//                 }
-//             })
-//         }
-//   })
+  });
+};
+//pending
+let job1 = doWork("刷牙", 3000, true);
+console.log(job1);
+//complete or not complete
+job1.then(
+  function (resolve) {
+    console.log("第一個被呼叫", resolve);
+  },
+  function (reject) {
+    console.log("第二個被呼叫", reject);
+  }
+);
