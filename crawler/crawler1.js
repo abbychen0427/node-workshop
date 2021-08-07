@@ -18,5 +18,5 @@ axios.get("https://www.twse.com.tw/exchangeReport/STOCK_DAY", {
     }
 })
 .then((response) => {
-console.log(response.data);
+    console.log(response.data);
 })
