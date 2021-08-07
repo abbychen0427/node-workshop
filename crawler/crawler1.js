@@ -10,13 +10,14 @@ const moment = require("moment");
 // console.log(response.data);
 // })
 //prettier
-axios.get("https://www.twse.com.tw/exchangeReport/STOCK_DAY", {
+axios
+  .get("https://www.twse.com.tw/exchangeReport/STOCK_DAY", {
     params: {
-        response: JSON,
-        date: moment().format("YYYYMMDD"),
-        stockNo: 2330
-    }
-})
-.then((response) => {
+      response: JSON,
+      date: moment().format("YYYYMMDD"),
+      stockNo: 2330,
+    },
+  })
+  .then((response) => {
     console.log(response.data);
-})
+  });
