@@ -18,38 +18,42 @@ connection.connect((err) => {
     console.log("連線成功");
   }
 });
+// let eachData = allData.data;
+    // for(let i = 0; i < eachData.length; i ++){
+    //   let noCommaData = eachData[0][i].replace(/,/g,"");
+    //   noCommaData[0] = parseInt(noCommaData[0].replace(/\//g, ""), 10)+ 19110000;
+    //   console.log(noCommaData);
+    // }
+async function getStockDataPromise() {
+  try {
+    let stockCode = await new Promise((resolve, reject) => {
+      fs.readFile("stock.txt", "utf-8", (err, stockCode) => {
+        if (err) {
+          reject("有錯誤", err);
+        } else {
+          resolve(stockCode);
+        }
+      });
+    });
+    // console.log(stockCode);
+    // let response = await axios.get(
+    //   "https://www.twse.com.tw/exchangeReport/STOCK_DAY",
+    //   {
+    //     params: {
+    //       response: JSON,
+    //       date: moment().format("YYYYMMDD"),
+    //       stockNo: stockCode,
+    //     },
+    //   }
+    // );
+    // console.log(response.data);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    // 不關閉連線，認為程式一直在執行
+    connection.end();
+    console.log("the end");
+  }
+}
 
-// 不關閉連線，認為程式一直在執行
-connection.end();
-
-// async function getStockData() {
-//   try {
-//     let stockCode = await new Promise((resolve, reject) => {
-//       fs.readFile("stock.txt", "utf-8", (err, stockCode) => {
-//         if (err) {
-//           reject("有錯誤", err);
-//         } else {
-//           resolve(stockCode);
-//         }
-//       });
-//     });
-//     // console.log(stockCode);
-//     let response = await axios.get(
-//       "https://www.twse.com.tw/exchangeReport/STOCK_DAY",
-//       {
-//         params: {
-//           response: JSON,
-//           date: moment().format("YYYYMMDD"),
-//           stockNo: stockCode,
-//         },
-//       }
-//     );
-//     console.log(response.data);
-//   } catch (err) {
-//     console.log(err);
-//   } finally {
-//     console.log("the end");
-//   }
-// }
-
-// getStockData();
+getStockDataPromise();
