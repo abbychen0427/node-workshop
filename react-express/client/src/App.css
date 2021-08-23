@@ -1,0 +1,14 @@
+.box{
+  margin: 10px auto;
+}
+.product-table {
+  width: 720px;
+  margin: 0 auto;
+}
+.product-table thead{
+  font-weight: bolder;
+}
+.product-table td{
+  padding: 5px;
+  border: 1px solid lightblue;
+}
