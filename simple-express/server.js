@@ -4,6 +4,10 @@ const connection = require("./utils/db");
 // 利用 express 建立了一個 express application
 let app = express();
 
+//處理cors問題 要放在所有路由、中間件前面
+const cors = require("cors");
+app.use(cors());
+
 //使用中間件
 app.use((req, res, next) => {
   let current = new Date();
@@ -42,6 +46,8 @@ app.get("/stock/:stockCode", async (req, res, next) => {
   res.json(result);
 })
 
+//前面都沒有遇到response 在這邊用找不到頁面的response接住 
+//應放在所有路由最下面 不然response就停住了 會全顯示404
 app.use((req, res, next) => {
   res.status(404).json({message: "NOT FOUND"});
 })
