@@ -36,16 +36,25 @@ app.get("/about", function (request, response, next) {
 });
 
 //stock get api
-app.get("/stock", async function (request, response, next) {
-  let result = await connection.queryAsync("SELECT * FROM stock");
+// app.get("/stock", async function (request, response, next) {
+//   let result = await connection.queryAsync("SELECT * FROM stock");
+//   response.json(result);
+// });
+
+// app.get("/stock/:stockCode", async (req, res, next) => {
+//   let result = await connection.queryAsync("SELECT * FROM stock_price WHERE stock_id = ?", [req.params.stockCode]);
+//   res.json(result);
+// })
+//試試看專案資料庫
+app.get("/product", async function (request, response, next) {
+  let result = await connection.queryAsync("SELECT * FROM product");
   response.json(result);
 });
 
-app.get("/stock/:stockCode", async (req, res, next) => {
-  let result = await connection.queryAsync("SELECT * FROM stock_price WHERE stock_id = ?", [req.params.stockCode]);
+app.get("/product/:productId", async (req, res, next) => {
+  let result = await connection.queryAsync("SELECT * FROM product WHERE id = ?", [req.params.productId]);
   res.json(result);
 })
-
 //前面都沒有遇到response 在這邊用找不到頁面的response接住 
 //應放在所有路由最下面 不然response就停住了 會全顯示404
 app.use((req, res, next) => {
